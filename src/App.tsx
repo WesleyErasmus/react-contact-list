@@ -1,13 +1,14 @@
-import useFetchData from "./utils/useFetchData"
+// >>>>>>>>>>>>>>> IMPORTS <<<<<<<<<<<<<<<
+
+// COMPONENTS
+import ContactList from './components/ContactList';
 
 function App() {
-  const { data } = useFetchData();
-
   return (
-    <div>
-      {data ? <p>{JSON.stringify(data, null, 1)}</p> : <p>Loading data...</p>}
-    </div>
+    <>
+      <ContactList />
+    </>
   );
 }
 
-export default App
+export default App;

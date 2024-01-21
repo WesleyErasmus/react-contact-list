@@ -1,10 +1,11 @@
-// Axios import
-import axios from 'axios';
+// >>>>>>>>>>>>>>> IMPORTS <<<<<<<<<<<<<<<
 
-// React hooks
+// AXIOS
+import axios from 'axios';
+// REACT HOOKS
 import { useEffect, useState } from 'react';
 
-// Defining data structure
+// CONTACT DATA INTERFACE - DEFINING DATA STRUCTURES
 interface ContactData {
   picture: { large: string; thumbnail: string };
   name: { first: string; last: string };
@@ -15,37 +16,51 @@ interface ContactData {
   location: { city: string; state: string; country: string };
 }
 
-const useFetchData = () => {
-  // React states
 
-  // <ContactData[]>: This type specifies that the data state variable will hold an array of objects that conform to the ContactData interface above.
+// >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
+
+const useFetchData = () => {
+  // REACT STATE
   const [data, setData] = useState<ContactData[]>([]);
+  // <ContactData[]>: This type specifies that the data state variable will hold an array of objects that conform to the ContactData interface above.
   const [isLoading, setIsLoading] = useState(true);
 
-  // Effect triggers once when components initially render as the dependency array is is empty
+
+  // USE EFFECT
+
   useEffect(() => {
-    // Defining the fetchData function
+    // Effect triggers once when components initially render as the dependency array is is empty
+
+    // DEFINING THE FETCH DATA FUNCTION
     const fetchData = async () => {
       try {
         // Asynchronously calling axios to fetch the API data
-        const response = await axios.get('https://randomuser.me/api/');
+        const response = await axios.get(
+          'https://randomuser.me/api/?results=50'
+        );
+
         // Setting data state variable with data from API
         setData(response.data.results);
         console.log(response.data.results);
-        // Error handling
+
+        // ERROR HANDLING
       } catch (error) {
         console.error(error);
-        /* The "finally" code block guarantees that the below code will always run regardless of the success or fail of "try" and "catch" code blocks. 
+  
+      } finally {
+        /* The "FINALLY" code block guarantees that the below code will always run regardless of the success or fail of "try" and "catch" code blocks. 
         >>
         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
         << */
-      } finally {
+
         // Set loading to false after the "catch" and "try" code blocks have run.
         setIsLoading(false);
       }
     };
+
     // Instantiating the fetchData function
     fetchData();
+
     // Defining an empty array as the useEffects second parameter
   }, []);
 
