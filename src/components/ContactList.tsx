@@ -7,6 +7,8 @@ import useFetchData from '../utils/useFetchData';
 import '../styles/contactList.css';
 // MUI
 import { Avatar, Box, Card, CardContent, Divider } from '@mui/material';
+// COMPONENTS
+import SkeletonContactList from './SkeletonContactList';
 
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
@@ -89,7 +91,8 @@ const ContactList = () => {
             );
           })
         ) : (
-          <p>Loading...</p>
+          // LOADING SKELETON COMPONENT 
+          <SkeletonContactList />
         )}
       </div>
     </div>
