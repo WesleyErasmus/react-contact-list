@@ -7,14 +7,18 @@ import { useEffect, useState } from 'react';
 
 // CONTACT DATA INTERFACE - DEFINING DATA STRUCTURES
 interface ContactData {
+  login: {uuid: string};
   picture: { large: string; thumbnail: string };
   name: { first: string; last: string };
   gender: string;
   dob: { age: number };
-  cell: number;
+  cell: string;
   email: string;
   location: { city: string; state: string; country: string };
 }
+
+// Exporting interface to shape contact data in components
+export type Contact = ContactData;
 
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<

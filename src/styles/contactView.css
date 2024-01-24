@@ -1,0 +1,61 @@
+
+.contact-view-title {
+    font-size: 15px;
+    /* color: #9E9E9E; */
+    /* color: #2196f3; */
+    color: #000000DE;
+    color: #7c7c7c;
+    margin: 0.4rem 0;
+    margin-bottom: 1rem;
+}
+
+.contact-view-subtitle {
+    font-size: 32px;
+    color: #000000DE;
+    font-weight: 300;
+    margin: 0.5rem 0;
+}
+
+.contact-view-divider {
+    /* border-bottom: 2px #DDDDDD solid; */
+    border-bottom: 2px #fff solid;
+    width: 24px;
+    margin: 0.5rem auto;
+    border-radius: 2px;
+}
+
+.contact-view-text-body {
+    font-size: 14px;
+    color: #1976D2;
+    color: #f50057;
+    line-height: 1.75;
+    margin: 0 auto;
+    width: 88%;
+}
+
+/* Dialog actions */
+.dialog-actions-container{
+    background-color: #fff !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+
+.dialog-view {
+    border-radius: 12px !important;
+}
+
+/* Card border radius override */
+.css-1qsomb9-MuiPaper-root-MuiCard-root {
+    border-radius: 0 !important;
+}
+
+/* Dialog border-radius override */
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    border-radius: 20px !important;
+}
+
+.css-102cj0y-MuiCardContent-root:last-child {
+    padding-bottom: 0 !important;
+}
+

@@ -1,20 +1,40 @@
-
 // >>>>>>>>>>>>>>> IMPORTS <<<<<<<<<<<<<<<
 
 // CUSTOM REACT HOOK - FETCHES API CONTACT DATA
 import useFetchData from '../utils/useFetchData';
+import { Contact } from '../utils/useFetchData';
+
 // STYLESHEET
 import '../styles/contactList.css';
+
 // MUI
 import { Avatar, Box, Card, CardContent, Divider } from '@mui/material';
+
 // COMPONENTS
 import SkeletonContactList from './SkeletonContactList';
+import ContactView from './ContactView';
 
+// STATE HOOK
+import { useState } from 'react';
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
 const ContactList = () => {
   const { data, isLoading } = useFetchData();
+
+  // STATE
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+
+  // OPEN DIALOG FUNCTION
+  const handleOpenDialog = (contact: Contact) => {
+    setSelectedContact(contact);
+  };
+
+// CLOSE DIALOG FUNCTION
+  const handleCloseDialog = () => {
+    setSelectedContact(null);
+  };
+
   return (
     // PAGE WRAPPER
     <div className='contact-list-page-wrapper'>
@@ -27,12 +47,14 @@ const ContactList = () => {
       <div className='contact-list-grid-container'>
         {/* Maps through API data once it has been retrieved, else displays loading message - using ternary operator */}
         {!isLoading ? (
-          data.map((contact, index) => {
+          data.map((contact: Contact) => {
             return (
-              <div key={index}>
+              <div key={contact.login.uuid}>
                 <div>
                   {/* CARD */}
                   <Card
+                  // Open dialog on click function
+                    onClick={() => handleOpenDialog(contact)}
                     className='contact-card'
                     sx={{
                       borderRadius: '12px',
@@ -95,6 +117,11 @@ const ContactList = () => {
           <SkeletonContactList />
         )}
       </div>
+      {/* Shorthand conditional rendering that displays the modal if the selected contact is not null */}
+      {selectedContact && (
+        // Passing contact data and the handle close dialog function through props to ContactView.
+        <ContactView contact={selectedContact} onClose={handleCloseDialog} />
+      )}
     </div>
   );
 };
