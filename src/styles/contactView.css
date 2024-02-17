@@ -1,23 +1,24 @@
 
 .contact-view-title {
     font-size: 15px;
-    /* color: #9E9E9E; */
-    /* color: #2196f3; */
-    color: #000000DE;
-    color: #7c7c7c;
     margin: 0.4rem 0;
     margin-bottom: 1rem;
 }
 
 .contact-view-subtitle {
     font-size: 32px;
-    color: #000000DE;
+    color: #f50057;
     font-weight: 300;
     margin: 0.5rem 0;
 }
 
+.contact-view-location-flex-container {
+    display: flex;
+    justify-content: center;
+    margin-left: -40px;
+}
+
 .contact-view-divider {
-    /* border-bottom: 2px #DDDDDD solid; */
     border-bottom: 2px #fff solid;
     width: 24px;
     margin: 0.5rem auto;
@@ -25,8 +26,8 @@
 }
 
 .contact-view-text-body {
-    font-size: 14px;
-    color: #1976D2;
+    font-size: 15px;
+    /* font-weight: 500; */
     color: #f50057;
     line-height: 1.75;
     margin: 0 auto;

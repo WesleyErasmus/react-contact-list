@@ -12,9 +12,11 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { Email, Phone } from '@mui/icons-material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 // CONTACT TYPE IMPORT
 import { Contact } from '../utils/useFetchData';
@@ -37,7 +39,7 @@ const ContactView = ({ contact, onClose }: {contact: Contact; onClose: () => voi
         {/* CARD */}
         <Card
           sx={{
-            width: 343,
+            width: 413,
             maxWidth: '100%',
             borderRadius: 'none',
             padding: 1.7,
@@ -80,18 +82,34 @@ const ContactView = ({ contact, onClose }: {contact: Contact; onClose: () => voi
             </div>
             {/* CONTACT LOCATION */}
             <div className='contact-view-title'>
-              {' '}
-              {contact.location.country}
+              <div className='contact-view-location-flex-container'>
+                <div>
+                  <LocationOnIcon color='primary' sx={{ margin: 1 }} />
+                </div>
+                <div>
+                  <Typography
+                    sx={{ display: 'block' }}
+                    component='span'
+                    variant='body1'
+                    color='text.primary'
+                  >
+                    {contact.location.city}
+                  </Typography>
+                  <Typography variant='body2' color='text.primary'>
+                    {contact.location.country}
+                  </Typography>
+                </div>
+              </div>
             </div>
             {/* CONTACT EMAIL */}
-            <div className='contact-view-text-body'>{contact.email}</div>
+            <div className='contact-view-text-body'>Email: {contact.email}</div>
             {/* CONTACT PHONE */}
-            <div className='contact-view-text-body'>{contact.cell}</div>
+            <div className='contact-view-text-body'>Phone: {contact.cell}</div>
             {/* CARD DIVIDER */}
             <div className='contact-view-divider'></div>
             <ButtonGroup
               variant='text'
-              size='medium'
+              size='large'
               aria-label='text button group'
               sx={{ border: '#fff solid 1px !important' }}
             >
@@ -99,7 +117,7 @@ const ContactView = ({ contact, onClose }: {contact: Contact; onClose: () => voi
               <Button
                 sx={{
                   paddingX: 3,
-                  color: '#f50057',
+                  color: '#f50057;',
                   border: '#fff solid 1px !important',
                 }}
                 startIcon={<Phone />}
@@ -108,7 +126,7 @@ const ContactView = ({ contact, onClose }: {contact: Contact; onClose: () => voi
               </Button>
               {/* EMAIL BUTTON */}
               <Button
-                sx={{ paddingX: 3, color: '#f50057' }}
+                sx={{ paddingX: 3, color: '#f50057;' }}
                 startIcon={<Email />}
               >
                 Email

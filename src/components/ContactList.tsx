@@ -30,8 +30,8 @@ import {
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRounded';
 
 // COMPONENT IMPORTS
 import SkeletonContactList from './SkeletonContactList';
@@ -43,7 +43,6 @@ import { useState } from 'react';
 
 // DRAWER WIDTH
 const drawerWidth = 300;
-
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
@@ -61,10 +60,6 @@ const ContactList = () => {
    3. Unselect / clear all selected items
 */
 
-  const handleLogSelectedContacts = () => {
-    console.log('Selected contacts:', selectedContacts);
-  };
-
   const handleContactSelection = (contact: Contact) => {
     setSelectedContacts((prevSelectedContacts) => {
       if (prevSelectedContacts.includes(contact)) {
@@ -73,6 +68,10 @@ const ContactList = () => {
         return [...prevSelectedContacts, contact];
       }
     });
+  };
+
+  const clearSelectedContacts = () => {
+    setSelectedContacts([]);
   };
 
   // OPEN DIALOG FUNCTION
@@ -102,6 +101,39 @@ const ContactList = () => {
               Contact Directory
             </Typography>
           </Toolbar>
+          <Toolbar
+          className='mobile-devices-nav-menu'
+            sx={{
+              padding: '0px',
+             display: "block",
+              background: '#f5f5f5',
+              color: '#000',
+            }}
+          >
+            <List sx={{ background: 'transparent' }}>
+              <ListItem>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ViewListIcon sx={{ color: '#f50057' }} />
+                  </ListItemIcon>
+                  <ViewSelectedContacts
+                    dialogButtonText='Display Selected'
+                    selectedContacts={selectedContacts}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <ListItemButton onClick={clearSelectedContacts}>
+                  <ListItemIcon>
+                    <DoNotDisturbAltRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Clear Selected Contacts' />
+                </ListItemButton>
+              </ListItem>
+              {/* <Divider /> */}
+            </List>
+          </Toolbar>
         </AppBar>
 
         <Drawer
@@ -123,19 +155,18 @@ const ContactList = () => {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <InboxIcon />
+                    <ViewListIcon sx={{ color: '#f50057' }} />
                   </ListItemIcon>
                   <ViewSelectedContacts
                     dialogButtonText='Display Selected'
-                    onClick={handleLogSelectedContacts}
                     selectedContacts={selectedContacts}
                   />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={clearSelectedContacts}>
                   <ListItemIcon>
-                    <MailIcon />
+                    <DoNotDisturbAltRoundedIcon />
                   </ListItemIcon>
                   <ListItemText primary='Clear Selected Contacts' />
                 </ListItemButton>
@@ -144,108 +175,105 @@ const ContactList = () => {
           </Box>
         </Drawer>
         <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
-  
-            {/* LIST CONTAINER */}
-              <List
-              className='contact-list-container'
-                sx={{
-                  width: '100%',
-                  minWidth: 370,
-                  maxWidth: 490,
-                  bgcolor: 'background.paper',
-                }}
-              >
-                {/* Maps through API data once it has been retrieved, else displays loading message - using ternary operator */}
-                {!isLoading ? (
-                  data.map((contact: Contact) => {
-                    return (
-                      <div key={contact.login.uuid}>
-                        <ListItem
-                          className={`contact-list-item ${
-                            selectedContacts.includes(contact)
-                              ? 'selected-contact'
-                              : ''
-                          }`}
-                          alignItems='flex-start'
-                          secondaryAction={
-                            <Checkbox
-                              edge='end'
-                              checked={selectedContacts.includes(contact)}
-                              onChange={() => handleContactSelection(contact)}
-                              icon={<RadioButtonUncheckedIcon />}
-                              checkedIcon={<CheckCircleIcon />}
-                            />
-                          }
-                        >
-                          <ListItemButton
-                          className='contact-list-item-button'
-                            onClick={() => handleOpenDialog(contact)}
-                          >
-                            <ListItemAvatar
-                            sx={{marginRight: 2}}
-                            >
-                              <Avatar
-                                sx={{
-                                  width: 56,
-                                  height: 56,
-                                }}
-                                alt={contact.name.first}
-                                src={contact.picture.large}
-                              />
-                            </ListItemAvatar>
+          {/* LIST CONTAINER */}
+          <List
+            className='contact-list-container'
+            sx={{
+              width: '100%',
+              minWidth: 320,
+              maxWidth: 490,
+              bgcolor: 'background.paper',
+            }}
+          >
+            {/* Maps through API data once it has been retrieved, else displays loading message - using ternary operator */}
+            {!isLoading ? (
+              data.map((contact: Contact) => {
+                return (
+                  <div key={contact.login.uuid}>
+                    <ListItem
+                      className={`contact-list-item ${
+                        selectedContacts.includes(contact)
+                          ? 'selected-contact'
+                          : ''
+                      }`}
+                      alignItems='flex-start'
+                      secondaryAction={
+                        <Checkbox
+                          edge='end'
+                          checked={selectedContacts.includes(contact)}
+                          onChange={() => handleContactSelection(contact)}
+                          icon={<RadioButtonUncheckedIcon />}
+                          checkedIcon={<CheckCircleIcon />}
+                        />
+                      }
+                    >
+                      <ListItemButton
+                        className='contact-list-item-button'
+                        onClick={() => handleOpenDialog(contact)}
+                      >
+                        <ListItemAvatar sx={{ marginRight: 2 }}>
+                          <Avatar
+                            sx={{
+                              width: 56,
+                              height: 56,
+                            }}
+                            alt={contact.name.first}
+                            src={contact.picture.large}
+                          />
+                        </ListItemAvatar>
 
-                            <ListItemText
-                              primary={
-                                <Typography className='contact-name-text'>
-                                  {contact.name.first} {contact.name.last}
+                        <ListItemText
+                          primary={
+                            <Typography className='contact-name-text'>
+                              {contact.name.first} {contact.name.last}
+                            </Typography>
+                          }
+                          secondary={
+                            <div className='location-flex-container'>
+                              <div>
+                                <LocationOnIcon
+                                  color='primary'
+                                  sx={{ margin: 1 }}
+                                />
+                              </div>
+                              <div>
+                                <Typography
+                                  sx={{ display: 'block' }}
+                                  component='span'
+                                  variant='body2'
+                                  color='text.primary'
+                                >
+                                  {contact.location.city}
                                 </Typography>
-                              }
-                              secondary={
-                                <div className='location-flex-container'>
-                                  <div>
-                                    <LocationOnIcon
-                                      color='primary'
-                                      sx={{ margin: 1 }}
-                                    />
-                                  </div>
-                                  <div>
-                                    <Typography
-                                      sx={{ display: 'block' }}
-                                      component='span'
-                                      variant='body2'
-                                      color='text.primary'
-                                    >
-                                      {contact.location.city}
-                                    </Typography>
-                                    <Typography
-                                      variant='caption'
-                                      color='text.secondary'
-                                    >
-                                      {contact.location.country}
-                                    </Typography>
-                                  </div>
-                                </div>
-                              }
-                            />
-                          </ListItemButton>
-                        </ListItem>
-                        {/* <Divider variant='middle' component='li' /> */}
-                      </div>
-                    );
-                  })
-                ) : (
-                  // LOADING SKELETON COMPONENT
-                  <SkeletonContactList />
-                )}
-              </List>
-            {/* Shorthand conditional rendering that displays the modal if the selected contact is not null */}
-            {selectedContact && (
-              // Passing contact data and the handle close dialog function through props to ContactView.
-              <ContactView
-                contact={selectedContact}
-                onClose={handleCloseDialog}
-              />
+                                <Typography
+                                  variant='caption'
+                                  color='text.secondary'
+                                >
+                                  {contact.location.country}
+                                </Typography>
+                              </div>
+                            </div>
+                          }
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                    {/* <Divider variant='middle' component='li' /> */}
+                  </div>
+                );
+              })
+            ) : (
+              // LOADING SKELETON COMPONENT
+              <SkeletonContactList />
             )}
+          </List>
+          {/* Shorthand conditional rendering that displays the modal if the selected contact is not null */}
+          {selectedContact && (
+            // Passing contact data and the handle close dialog function through props to ContactView.
+            <ContactView
+              contact={selectedContact}
+              onClose={handleCloseDialog}
+            />
+          )}
         </Box>
       </Box>
     </>

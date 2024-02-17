@@ -6,6 +6,10 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px !important;
 }
 
+.mobile-devices-nav-menu {
+    display: none !important;
+}
+
 /* Nav drawer styling */
 .left-navigation-drawer,
 .MuiDrawer-paper {
@@ -71,3 +75,75 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
 }
 
 /* END OF SkeletonContactList.tsx CODE */
+
+@media (max-width: 1366px) {
+
+    /* Nav drawer styling */
+    .left-navigation-drawer,
+    .MuiDrawer-paper {
+        margin-left: 9rem;
+    }
+}
+
+
+@media (max-width: 1064px) {
+
+    /* Nav drawer styling */
+    .left-navigation-drawer,
+    .MuiDrawer-paper {
+        margin-left: 3rem;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    /* Nav drawer styling */
+    .left-navigation-drawer,
+    .MuiDrawer-paper {
+        margin-left: 0.5rem;
+        width: 265px !important;
+
+}
+
+@media (max-width: 640px) {
+
+    .top-navbar {
+            box-shadow: none !important;
+            border-bottom: 1px solid rgb(224, 224, 224);
+        }
+    
+        .mobile-devices-nav-menu {
+            display: block !important;
+        }
+    
+        .left-navigation-drawer {
+            display: none;
+        }
+    
+        .contact-list-container {
+            margin: 0 auto !important;
+            margin-top: 200px !important;
+        }
+
+}
+
+@media (max-width: 480px) {
+    .top-navbar {
+        box-shadow: none !important;
+        border-bottom: 1px solid rgb(224, 224, 224);
+    }
+
+    .mobile-devices-nav-menu {
+        display: block !important;
+    }
+
+    .left-navigation-drawer {
+        display: none;
+    }
+
+    .contact-list-container {
+        margin-top: 200px !important;
+    }
+}
+}
