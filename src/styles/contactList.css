@@ -3,7 +3,12 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
 
 /* Page wrapper */
 .contact-list-page-wrapper {
+    /* position: relative; */
     padding: 25px;
+}
+
+.top-navbar {
+    /* position: fixed; */
 }
 
 /* Page heading */
@@ -22,15 +27,27 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
 
 /* Contact card */
 .contact-card {
-    width: 318px;
+    min-width: 318px;
+    max-width: 364px;
+    height: 117px;
     opacity: 0.90;
+    position: relative !important;
+}
+
+.selected-contact {
+    background: #f50057;
 }
 
 /* Card body */
 .contact-card-body {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     padding: 11px;
+}
+
+.contact-list-contact-name {
+    color: #f50057;
 }
 
 /* Card name and location text container */
@@ -39,22 +56,46 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
     text-align: left;
 }
 
+.card-body-inner {
+    display: flex;
+    flex-direction: row;
+}
+
 /* Card hover effect */
 .contact-card:hover {
     opacity: 1;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
     transform: scale(1.03);
-    cursor: pointer;
     color: #fff;
     background: #f50057;
 }
 
-.contact-card:hover .location-text-container {
-    color: #000;
+.contact-card:hover .contact-list-contact-name {
+    color: #fff;
+}
+
+
+.contact-card:hover .view-contact-details-button {
+    color: #fff;
+}
+
+.select-contact-checkbox {
+    display: flex;
+    flex-direction: column;
 }
 
 /* End of card hover effect styling */
 
+
+.view-contact-details-button {
+    /* color: #f50057; */
+    font-size: 12px;
+    padding: 0;
+    margin: 0 25px;
+    position: absolute !important;
+    right: 0;
+    bottom: 20px;
+    /* visibility: hidden; */
+}
 
 /* >>>>> BELOW CODE APPLIES ONLY TO SkeletonContactList.tsx <<<<< */
 .skeleton-contact-list-backdrop {
@@ -122,7 +163,8 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
     /* Contact card */
     .contact-card {
         opacity: 1;
-        width: 89vw;
+        /* width: 89vw; */
+        width: 382px;
         border-radius: 0px !important;
         background: transparent !important;
         padding: 15px;
@@ -150,11 +192,6 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
     .contact-card:hover {
         color: #f50057;
         background: #f5f5f5;
-    }
-
-    /* location text */
-    .location-text-container {
-        color: #000 !important;
     }
 }
 
@@ -201,7 +238,8 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
     /* Contact card */
     .contact-card {
         opacity: 1;
-        width: 89vw;
+        /* width: 89vw; */
+        width: 382px;
         border-radius: 0px !important;
         background: #f5f5f550 !important;
     }
