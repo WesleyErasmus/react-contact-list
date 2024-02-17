@@ -1,101 +1,53 @@
 /* >>>>> NOTE <<<<<
 This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensure that the loading placeholders look the same as the contact cards */
 
-/* Page wrapper */
-.contact-list-page-wrapper {
-    /* position: relative; */
-    padding: 25px;
+.top-navbar {
+    background-color: #f50057 !important;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px !important;
 }
 
-.top-navbar {
-    /* position: fixed; */
+/* Nav drawer styling */
+.left-navigation-drawer,
+.MuiDrawer-paper {
+    margin-top: 120px;
+    margin-left: 22rem;
+    border: none !important;
 }
 
 /* Page heading */
-.contact-list-page-header {
+.nav-drawer-menu-heading {
     color: #f50057;
-    padding: 20px 5px;
+    padding: 15px 15px;
 }
 
-/* Contact cards grid */
-.contact-list-grid-container {
-    display: inline-grid;
-    grid-template-columns: auto auto auto;
-    gap: 12px;
-    padding: 12x;
+/* List container */
+.contact-list-container {
+    margin-top: 153px !important;
 }
 
-/* Contact card */
-.contact-card {
-    min-width: 318px;
-    max-width: 364px;
-    height: 117px;
-    opacity: 0.90;
-    position: relative !important;
+/* List item */
+.contact-list-item {
+    padding: 1px 0 !important;
+    margin-bottom: 3px;
+    border-bottom: 1px rgba(219, 219, 219, 0.527) solid;
 }
 
+/* Contact name styling */
+.contact-name-text {
+    color: #f50057;
+    font-weight: 500 !important;
+}
+
+/* Location icon and text flex container */
+.location-flex-container {
+    display: flex;
+}
+
+/* Conditional styling to highlight a selected contact */
 .selected-contact {
-    background: #f50057;
+    background: #cecece73;
 }
 
-/* Card body */
-.contact-card-body {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 11px;
-}
-
-.contact-list-contact-name {
-    color: #f50057;
-}
-
-/* Card name and location text container */
-.card-text-content {
-    margin-left: 15px;
-    text-align: left;
-}
-
-.card-body-inner {
-    display: flex;
-    flex-direction: row;
-}
-
-/* Card hover effect */
-.contact-card:hover {
-    opacity: 1;
-    transform: scale(1.03);
-    color: #fff;
-    background: #f50057;
-}
-
-.contact-card:hover .contact-list-contact-name {
-    color: #fff;
-}
-
-
-.contact-card:hover .view-contact-details-button {
-    color: #fff;
-}
-
-.select-contact-checkbox {
-    display: flex;
-    flex-direction: column;
-}
-
-/* End of card hover effect styling */
-
-
-.view-contact-details-button {
-    /* color: #f50057; */
-    font-size: 12px;
-    padding: 0;
-    margin: 0 25px;
-    position: absolute !important;
-    right: 0;
-    bottom: 20px;
-    /* visibility: hidden; */
-}
 
 /* >>>>> BELOW CODE APPLIES ONLY TO SkeletonContactList.tsx <<<<< */
 .skeleton-contact-list-backdrop {
@@ -119,142 +71,3 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
 }
 
 /* END OF SkeletonContactList.tsx CODE */
-
-
-/* >>>>>>>>>>>>>>> MEDIA QUERIES <<<<<<<<<<<<<<< */
-
-/* 1068px AND SMALLER */
-@media only screen and (max-width: 1024px) {
-
-    /* Contact list grid container */
-    .contact-list-grid-container {
-        grid-template-columns: auto auto auto;
-    }
-
-    /* Card body */
-    .contact-card-body {
-        padding: 9px !important;
-    }
-
-
-    /* Contact list grid container */
-    .contact-list-grid-container {
-        grid-template-columns: auto auto;
-    }
-
-    /* Contact card */
-    .contact-card {
-        width: 382px;
-
-    }
-}
-
-/* 896px AND SMALLER */
-@media only screen and (max-width: 896px) {
-
-    /* Contact list grid container */
-    .contact-list-grid-container {
-        grid-template-columns: auto;
-        gap: 0px;
-        background: #f5f5f598 !important;
-        border-radius: 12px !important;
-    }
-
-    /* Contact card */
-    .contact-card {
-        opacity: 1;
-        /* width: 89vw; */
-        width: 382px;
-        border-radius: 0px !important;
-        background: transparent !important;
-        padding: 15px;
-    }
-
-    /* Card body */
-    .contact-card-body {
-        padding: 5px !important;
-    }
-
-    /* Contact image */
-    .contact-list-contact-image {
-        width: 48px !important;
-        height: 48px !important;
-        margin: 5px !important;
-        border-radius: 12px !important;
-    }
-
-    /* Contact's name */
-    .contact-list-contact-name {
-        color: #f50057;
-    }
-
-    /* Card hover */
-    .contact-card:hover {
-        color: #f50057;
-        background: #f5f5f5;
-    }
-}
-
-
-
-/* 768px AND SMALLER */
-@media only screen and (max-width: 768px) {
-
-    /* Page wrapper */
-    .contact-list-page-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-    }
-
-    /* Contact list grid container */
-    .contact-list-grid-container {
-        grid-template-columns: auto auto;
-    }
-
-    /* Contact card */
-    .contact-card {
-        width: 338px;
-        opacity: 0.90;
-    }
-
-}
-
-
-/* 480px AND SMALLER */
-@media only screen and (max-width: 480px) {
-
-    /* Contact list grid container */
-    .contact-list-grid-container {
-        grid-template-columns: auto;
-        gap: 0px;
-    }
-
-    /* Page heading */
-    .contact-list-page-header {
-        font-size: 22px !important;
-    }
-
-    /* Contact card */
-    .contact-card {
-        opacity: 1;
-        /* width: 89vw; */
-        width: 382px;
-        border-radius: 0px !important;
-        background: #f5f5f550 !important;
-    }
-
-    /* Card body */
-    .contact-card-body {
-        padding: 5px !important;
-    }
-
-    /* Contact image */
-    .contact-list-contact-image {
-        width: 48px !important;
-        height: 48px !important;
-        margin: 5px !important;
-        border-radius: 12px !important;
-    }
-
-}

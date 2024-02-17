@@ -34,11 +34,13 @@ interface ViewSelectedContactsProps {
   // Function type for the onClick prop
   onClick: () => void;
   selectedContacts: Contact[];
+  dialogButtonText: string;
 }
 
 const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
   onClick,
   selectedContacts,
+  dialogButtonText
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -63,9 +65,9 @@ const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
 
   return (
     <>
-      <Button variant='outlined' onClick={handleClickOpen}>
-        <span onClick={onClick}>View Selected Contacts</span>
-      </Button>
+      <ListItemText onClick={handleClickOpen}>
+        <span onClick={onClick}>{dialogButtonText}</span>
+      </ListItemText>
       <Dialog
         fullScreen
         open={open}
