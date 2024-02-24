@@ -1,18 +1,8 @@
 /* >>>>> NOTE <<<<<
 This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensure that the loading placeholders look the same as the contact cards */
 
-.top-navbar {
-    background-color: #f50057 !important;
-    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px !important;
-}
-
 .mobile-navbar-visibility {
     display: none;
-}
-
-.app-title {
-    font-size: 32px;
-    font-weight: 500;
 }
 
 /* Nav drawer styling */
@@ -111,27 +101,11 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
 
     }
 
+}
     @media (max-width: 640px) {
 
         .mobile-navbar-visibility {
             display: block;
-        }
-
-        .app-title-container {
-            padding: 20px 30px !important;
-            justify-content: start !important;
-        }
-
-        .app-title {
-            font-size: 32px;
-            font-weight: 500;
-        }
-
-        .top-navbar {
-            box-shadow: none !important;
-            border-bottom: 1px solid rgb(224, 224, 224);
-            border-bottom-left-radius: 7px !important;
-            border-bottom-right-radius: 7px !important;
         }
 
         .left-navigation-drawer {
@@ -147,15 +121,6 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
 
     @media (max-width: 480px) {
 
-        .top-navbar {
-            border-bottom-left-radius: 4px !important;
-            border-bottom-right-radius: 4px !important;
-        }
-
-        .app-title {
-            font-size: 26px;
-            font-weight: 600;
-        }
         .contact-list-padding-wrapper {
             padding: 0 !important;
         }
@@ -165,13 +130,8 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
             margin: 0px !important;
         }
 
-        .mobile-devices-nav-menu {
-            display: block !important;
-        }
-
         .left-navigation-drawer {
             display: none;
         }
 
     }
-}

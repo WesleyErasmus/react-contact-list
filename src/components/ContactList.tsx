@@ -12,17 +12,11 @@ import {
   Avatar,
   Box,
   Checkbox,
-  Divider,
   ListItemAvatar,
-  Toolbar,
   Typography,
-  Drawer,
-  AppBar,
-  CssBaseline,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
 } from '@mui/material';
 
@@ -30,20 +24,18 @@ import {
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import HowToRegRoundedIcon from '@mui/icons-material/HowToRegRounded';
-import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
+
 
 // COMPONENT IMPORTS
 import SkeletonContactList from './SkeletonContactList';
 import ContactView from './ContactView';
-import ViewSelectedContacts from './ViewSelectedContacts';
+
 
 // STATE HOOK
 import { useState } from 'react';
 import MobileBottomNavbar from './MobileBottomNavbar';
-
-// DRAWER WIDTH
-const drawerWidth = 300;
+import TopNavbar from './TopNavbar';
+import NavFilterMenu from './NavFilterMenu';
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
@@ -84,59 +76,13 @@ const ContactList = () => {
   return (
     <>
       <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar
-          className='top-navbar'
-          position='fixed'
-          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        >
-          <Toolbar
-            className='app-title-container'
-            variant='dense'
-            sx={{ padding: '20px 0px', justifyContent: 'center' }}
-          >
-            <div className='app-title'>Contact Directory</div>
-          </Toolbar>
-        </AppBar>
+        {/* Top Navbar */}
+        <TopNavbar />
 
-        <Drawer
-          className='left-navigation-drawer'
-          variant='permanent'
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
-          }}
-        >
-          <h2 className='nav-drawer-menu-heading'>Filter Contacts</h2>
-          <Box sx={{ overflow: 'auto' }}>
-            <Divider />
-            <List>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <HowToRegRoundedIcon sx={{ color: '#f50057' }} />
-                  </ListItemIcon>
-                  <ViewSelectedContacts
-                    dialogButtonText='Display Selected'
-                    selectedContacts={selectedContacts}
-                  />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton onClick={clearSelectedContacts}>
-                  <ListItemIcon>
-                    <RefreshRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary='Clear Selected Contacts' />
-                </ListItemButton>
-              </ListItem>
-            </List>
-          </Box>
-        </Drawer>
+        <NavFilterMenu
+          clearSelectedContacts={clearSelectedContacts}
+          selectedContacts={selectedContacts}
+        />
         <Box
           component='main'
           className='contact-list-padding-wrapper'
@@ -233,15 +179,12 @@ const ContactList = () => {
               <SkeletonContactList />
             )}
           </List>
-          {/* Shorthand conditional rendering that displays the modal if the selected contact is not null */}
-          {selectedContact && (
-            // Passing contact data and the handle close dialog function through props to ContactView.
-            <ContactView
-              contact={selectedContact}
-              onClose={handleCloseDialog}
-            />
-          )}
         </Box>
+        {/* Shorthand conditional rendering that displays the modal if the selected contact is not null */}
+        {selectedContact && (
+          // Passing contact data and the handle close dialog function through props to ContactView.
+          <ContactView contact={selectedContact} onClose={handleCloseDialog} />
+        )}
       </Box>
       {/* Mobile Navbar */}
       <div className='mobile-navbar-visibility'>
