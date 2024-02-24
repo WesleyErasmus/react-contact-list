@@ -30,8 +30,8 @@ import {
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import ViewListIcon from '@mui/icons-material/ViewList';
-import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRounded';
+import HowToRegRoundedIcon from '@mui/icons-material/HowToRegRounded';
+import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 
 // COMPONENT IMPORTS
 import SkeletonContactList from './SkeletonContactList';
@@ -40,6 +40,7 @@ import ViewSelectedContacts from './ViewSelectedContacts';
 
 // STATE HOOK
 import { useState } from 'react';
+import MobileBottomNavbar from './MobileBottomNavbar';
 
 // DRAWER WIDTH
 const drawerWidth = 300;
@@ -55,10 +56,6 @@ const ContactList = () => {
   // SELECTED CONTACTS LIST VIEW
   const [selectedContacts, setSelectedContacts] = useState<Contact[]>([]);
 
-  /* 1. Select individual contacts
-   2. select all contacts
-   3. Unselect / clear all selected items
-*/
 
   const handleContactSelection = (contact: Contact) => {
     setSelectedContacts((prevSelectedContacts) => {
@@ -94,45 +91,11 @@ const ContactList = () => {
           sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
         >
           <Toolbar
+            className='app-title-container'
             variant='dense'
             sx={{ padding: '20px 0px', justifyContent: 'center' }}
           >
-            <Typography variant='h4' color='inherit' component='div'>
-              Contact Directory
-            </Typography>
-          </Toolbar>
-          <Toolbar
-          className='mobile-devices-nav-menu'
-            sx={{
-              padding: '0px',
-             display: "block",
-              background: '#f5f5f5',
-              color: '#000',
-            }}
-          >
-            <List sx={{ background: 'transparent' }}>
-              <ListItem>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ViewListIcon sx={{ color: '#f50057' }} />
-                  </ListItemIcon>
-                  <ViewSelectedContacts
-                    dialogButtonText='Display Selected'
-                    selectedContacts={selectedContacts}
-                  />
-                </ListItemButton>
-              </ListItem>
-              <Divider />
-              <ListItem>
-                <ListItemButton onClick={clearSelectedContacts}>
-                  <ListItemIcon>
-                    <DoNotDisturbAltRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary='Clear Selected Contacts' />
-                </ListItemButton>
-              </ListItem>
-              {/* <Divider /> */}
-            </List>
+            <div className='app-title'>Contact Directory</div>
           </Toolbar>
         </AppBar>
 
@@ -155,7 +118,7 @@ const ContactList = () => {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <ViewListIcon sx={{ color: '#f50057' }} />
+                    <HowToRegRoundedIcon sx={{ color: '#f50057' }} />
                   </ListItemIcon>
                   <ViewSelectedContacts
                     dialogButtonText='Display Selected'
@@ -166,7 +129,7 @@ const ContactList = () => {
               <ListItem disablePadding>
                 <ListItemButton onClick={clearSelectedContacts}>
                   <ListItemIcon>
-                    <DoNotDisturbAltRoundedIcon />
+                    <RefreshRoundedIcon />
                   </ListItemIcon>
                   <ListItemText primary='Clear Selected Contacts' />
                 </ListItemButton>
@@ -174,7 +137,11 @@ const ContactList = () => {
             </List>
           </Box>
         </Drawer>
-        <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+        <Box
+          component='main'
+          className='contact-list-padding-wrapper'
+          sx={{ flexGrow: 1, p: 3 }}
+        >
           {/* LIST CONTAINER */}
           <List
             className='contact-list-container'
@@ -276,6 +243,10 @@ const ContactList = () => {
           )}
         </Box>
       </Box>
+      {/* Mobile Navbar */}
+      <div className='mobile-navbar-visibility'>
+        <MobileBottomNavbar />
+      </div>
     </>
   );
 };

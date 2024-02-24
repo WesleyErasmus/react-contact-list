@@ -6,8 +6,13 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px !important;
 }
 
-.mobile-devices-nav-menu {
-    display: none !important;
+.mobile-navbar-visibility {
+    display: none;
+}
+
+.app-title {
+    font-size: 32px;
+    font-weight: 500;
 }
 
 /* Nav drawer styling */
@@ -104,46 +109,69 @@ This styles sheet is used for ContactList.tsx & SkeletonContactList.tsx to ensur
         margin-left: 0.5rem;
         width: 265px !important;
 
-}
+    }
 
-@media (max-width: 640px) {
+    @media (max-width: 640px) {
 
-    .top-navbar {
+        .mobile-navbar-visibility {
+            display: block;
+        }
+
+        .app-title-container {
+            padding: 20px 30px !important;
+            justify-content: start !important;
+        }
+
+        .app-title {
+            font-size: 32px;
+            font-weight: 500;
+        }
+
+        .top-navbar {
             box-shadow: none !important;
             border-bottom: 1px solid rgb(224, 224, 224);
+            border-bottom-left-radius: 7px !important;
+            border-bottom-right-radius: 7px !important;
         }
-    
-        .mobile-devices-nav-menu {
-            display: block !important;
-        }
-    
+
         .left-navigation-drawer {
             display: none;
         }
-    
+
         .contact-list-container {
             margin: 0 auto !important;
-            margin-top: 200px !important;
+            margin-top: 72px !important;
         }
 
-}
-
-@media (max-width: 480px) {
-    .top-navbar {
-        box-shadow: none !important;
-        border-bottom: 1px solid rgb(224, 224, 224);
     }
 
-    .mobile-devices-nav-menu {
-        display: block !important;
-    }
+    @media (max-width: 480px) {
 
-    .left-navigation-drawer {
-        display: none;
-    }
+        .top-navbar {
+            border-bottom-left-radius: 4px !important;
+            border-bottom-right-radius: 4px !important;
+        }
 
-    .contact-list-container {
-        margin-top: 200px !important;
+        .app-title {
+            font-size: 26px;
+            font-weight: 600;
+        }
+        .contact-list-padding-wrapper {
+            padding: 0 !important;
+        }
+
+        .contact-list-item {
+            padding: 0 !important;
+            margin: 0px !important;
+        }
+
+        .mobile-devices-nav-menu {
+            display: block !important;
+        }
+
+        .left-navigation-drawer {
+            display: none;
+        }
+
     }
-}
 }
