@@ -188,7 +188,10 @@ const ContactList = () => {
       </Box>
       {/* Mobile Navbar */}
       <div className='mobile-navbar-visibility'>
-        <MobileBottomNavbar />
+        <MobileBottomNavbar
+          clearSelectedContacts={clearSelectedContacts}
+          selectedContacts={selectedContacts}
+        />
       </div>
     </>
   );

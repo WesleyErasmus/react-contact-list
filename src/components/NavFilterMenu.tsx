@@ -41,9 +41,13 @@ const NavFilterMenu = ({
                 <ListItemIcon>
                   <HowToRegRoundedIcon sx={{ color: '#f50057' }} />
                 </ListItemIcon>
-                <ViewSelectedContacts
-                  dialogButtonText='Display Selected'
-                  selectedContacts={selectedContacts}
+                <ListItemText
+                  primary={
+                    <ViewSelectedContacts
+                      dialogButtonText='Display Selected'
+                      selectedContacts={selectedContacts}
+                    />
+                  }
                 />
               </ListItemButton>
             </ListItem>

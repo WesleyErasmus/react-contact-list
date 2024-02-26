@@ -79,9 +79,9 @@ const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
 
   return (
     <>
-      <ListItemText onClick={handleClickOpen('paper')}>
+      <span onClick={handleClickOpen('paper')}>
         <span>{dialogButtonText}</span>
-      </ListItemText>
+      </span>
       <Dialog
         fullScreen
         open={open}

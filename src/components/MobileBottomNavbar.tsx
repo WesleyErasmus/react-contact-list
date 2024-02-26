@@ -7,10 +7,23 @@ import HowToRegRoundedIcon from '@mui/icons-material/HowToRegRounded';
 import Paper from '@mui/material/Paper';
 
 import '../styles/mobileBottomNavbar.css'
+import ViewSelectedContacts from './ViewSelectedContacts';
+import { Contact } from '../utils/useFetchData';
+
+// import { handleClickOpen } from './ViewSelectedContacts';
 
 
+interface MobileBottomNavbarProps {
+   clearSelectedContacts: () => void;
+  selectedContacts: Contact[];
+}
 
-const MobileBottomNavbar = () => {
+const MobileBottomNavbar = ({
+  clearSelectedContacts,
+  selectedContacts,
+}: MobileBottomNavbarProps) => {
+
+  
   return (
     <>
       <Box sx={{ pb: 7 }}>
@@ -22,13 +35,16 @@ const MobileBottomNavbar = () => {
           <BottomNavigation showLabels className='bottom-mobile-navbar'>
             <BottomNavigationAction
               className='mobile-nav-button'
-              label='View Selected Contacts'
-              icon={<HowToRegRoundedIcon />}
+              label={<ViewSelectedContacts dialogButtonText='Display Selected'
+                      selectedContacts={selectedContacts}/> }
+              icon={<HowToRegRoundedIcon />} 
             />
+
             <BottomNavigationAction
               className='mobile-nav-button'
               label='Clear Selected Contacts'
               icon={<RefreshRoundedIcon />}
+              onClick={clearSelectedContacts}
             />
           </BottomNavigation>
         </Paper>
