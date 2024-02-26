@@ -33,8 +33,6 @@ const Transition = React.forwardRef(function Transition(
 import { Contact } from '../utils/useFetchData';
 import {
   Avatar,
-
-  DialogContent,
   DialogTitle,
   ListItem,
   ListItemAvatar,
@@ -111,7 +109,7 @@ const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
           </DialogTitle>
         </AppBar>
 
-        <DialogContent dividers={scroll === 'paper'}>
+        <div>
           <List
             sx={{
               width: '100%',
@@ -192,7 +190,7 @@ const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
               />
             )}
           </List>
-        </DialogContent>
+        </div>
       </Dialog>
     </>
   );
