@@ -35,16 +35,20 @@ const MobileBottomNavbar = ({
           <BottomNavigation showLabels className='bottom-mobile-navbar'>
             <BottomNavigationAction
               className='mobile-nav-button'
-              label={<ViewSelectedContacts dialogButtonText='Display Selected'
-                      selectedContacts={selectedContacts}/> }
-              icon={<HowToRegRoundedIcon />} 
+              label='Clear Selected Contacts'
+              icon={<RefreshRoundedIcon />}
+              onClick={clearSelectedContacts}
             />
 
             <BottomNavigationAction
               className='mobile-nav-button'
-              label='Clear Selected Contacts'
-              icon={<RefreshRoundedIcon />}
-              onClick={clearSelectedContacts}
+              label={
+                <ViewSelectedContacts
+                  dialogButtonText='Display Selected'
+                  selectedContacts={selectedContacts}
+                />
+              }
+              icon={<HowToRegRoundedIcon />}
             />
           </BottomNavigation>
         </Paper>

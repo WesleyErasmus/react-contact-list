@@ -112,6 +112,7 @@ const ContactList = () => {
                       alignItems='flex-start'
                       secondaryAction={
                         <Checkbox
+                          sx={{ marginRight: 1 }}
                           edge='end'
                           checked={selectedContacts.includes(contact)}
                           onChange={() => handleContactSelection(contact)}
@@ -124,7 +125,9 @@ const ContactList = () => {
                         className='contact-list-item-button'
                         onClick={() => handleOpenDialog(contact)}
                       >
-                        <ListItemAvatar sx={{ marginRight: 2 }}>
+                        <ListItemAvatar
+                          sx={{ marginLeft: 1, marginRight: 2 }}
+                        >
                           <Avatar
                             sx={{
                               width: 56,

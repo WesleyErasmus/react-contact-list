@@ -1,5 +1,5 @@
 // STYLESHEET
-import '../styles/contactList.css';
+import '../styles/viewSelectedContacts.css';
 
 import * as React from 'react';
 // import Dialog from '@mui/material/Dialog';
@@ -87,10 +87,11 @@ const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar className='top-navbar' sx={{ position: 'relative' }}>
+        <AppBar className='top-navbar' sx={{ position: 'fixed' }}>
           <DialogTitle id='scroll-dialog-title'>
-            <Toolbar variant='dense' sx={{ padding: '20px 0px' }}>
+            <Toolbar variant='dense' sx={{ padding: '10px 0px' }}>
               <Typography
+              className="view-selected-contacts-title"
                 sx={{ ml: 2, flex: 1, textAlign: 'center' }}
                 variant='h4'
                 component='div'
@@ -117,6 +118,7 @@ const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
               maxWidth: 490,
               bgcolor: 'background.paper',
               margin: 'auto',
+              marginTop: "85px"
             }}
           >
             {selectedContacts.map((contact: Contact) => {
