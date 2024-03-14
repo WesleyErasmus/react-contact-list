@@ -3,6 +3,7 @@
 // CUSTOM REACT HOOK - FETCHES API CONTACT DATA
 import useFetchData from '../utils/useFetchData';
 import { Contact } from '../utils/useFetchData';
+import axios from 'axios';
 
 // STYLESHEET
 import '../styles/contactList.css';
@@ -18,6 +19,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Button,
 } from '@mui/material';
 
 // MUI ICONS
@@ -40,13 +42,31 @@ import NavFilterMenu from './NavFilterMenu';
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
 const ContactList = () => {
-  const { data, isLoading } = useFetchData();
+  const { data, isLoading, setData } = useFetchData();
 
   // STATE
   // SINGLE CONTACT VIEW
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   // SELECTED CONTACTS LIST VIEW
   const [selectedContacts, setSelectedContacts] = useState<Contact[]>([]);
+
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+ const handleLoadMore = async () => {
+   try {
+     setIsLoadingMore(true);
+     const currentPage = data.length / 10 + 1; // Calculate current page
+     const response = await axios.get(
+       `https://randomuser.me/api/?page=${currentPage}&results=10&seed=abc`
+     );
+     const newData = response.data.results;
+     setData([...data, ...newData]); // Concatenate new data to existing data
+   } catch (error) {
+     console.error(error);
+   } finally {
+     setIsLoadingMore(false);
+   }
+ };
 
 
   const handleContactSelection = (contact: Contact) => {
@@ -98,8 +118,9 @@ const ContactList = () => {
               bgcolor: 'background.paper',
             }}
           >
+            {(isLoading || data.length === 0) && <SkeletonContactList />}
             {/* Maps through API data once it has been retrieved, else displays loading message - using ternary operator */}
-            {!isLoading ? (
+            {!isLoading &&
               data.map((contact: Contact) => {
                 return (
                   <div key={contact.login.uuid}>
@@ -125,9 +146,7 @@ const ContactList = () => {
                         className='contact-list-item-button'
                         onClick={() => handleOpenDialog(contact)}
                       >
-                        <ListItemAvatar
-                          sx={{ marginLeft: 1, marginRight: 2 }}
-                        >
+                        <ListItemAvatar sx={{ marginLeft: 1, marginRight: 2 }}>
                           <Avatar
                             sx={{
                               width: 56,
@@ -176,12 +195,21 @@ const ContactList = () => {
                     {/* <Divider variant='middle' component='li' /> */}
                   </div>
                 );
-              })
-            ) : (
-              // LOADING SKELETON COMPONENT
-              <SkeletonContactList />
-            )}
+              })}
+            {/* // Loading skeleton while fetching more */}
+            {isLoadingMore && <SkeletonContactList />}
           </List>
+          <div className='load-more-button-container'>
+            <Button
+              className='load-more-button'
+              variant='outlined'
+              onClick={handleLoadMore}
+              disabled={isLoadingMore}
+              style={{ display: data.length >= 10 ? 'block' : 'none' }}
+            >
+              Load More
+            </Button>
+          </div>
         </Box>
         {/* Shorthand conditional rendering that displays the modal if the selected contact is not null */}
         {selectedContact && (
