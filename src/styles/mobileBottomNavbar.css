@@ -1,3 +1,6 @@
+/* ONLY FORM MOBILE SCREEN NAVBAR */
+
+/* Bottom navbar container */
 .bottom-mobile-navbar {
     margin-bottom: 15px;
     border-top-left-radius: 7px !important;
@@ -5,6 +8,7 @@
     justify-content: space-evenly !important;
 }
 
+/* Bottom Nav buttons */
 .mobile-nav-button {
     color: #f50057 !important;
     font-size: 15px !important;

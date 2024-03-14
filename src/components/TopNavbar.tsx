@@ -1,7 +1,10 @@
-import '../styles/topNavbar.css'
-
+// MUI
 import { AppBar, Toolbar } from "@mui/material";
 
+// STYLESHEET
+import '../styles/topNavbar.css';
+
+// >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
 const TopNavbar = () => {
   return (
@@ -16,6 +19,7 @@ const TopNavbar = () => {
           variant='dense'
           sx={{ padding: '20px 0px', justifyContent: 'center' }}
         >
+          {/* NAVBAR HEADING */}
           <div className='app-title'>Contact Directory</div>
         </Toolbar>
       </AppBar>

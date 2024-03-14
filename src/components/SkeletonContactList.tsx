@@ -1,16 +1,14 @@
-// >>>>>>>>>>>>>>> IMPORTS <<<<<<<<<<<<<<<
-
-// STYLESHEET
-import '../styles/skeletonContactList.css';
 // MUI
 import { Skeleton, Box, List, ListItem } from '@mui/material';
 
+// STYLESHEET
+import '../styles/skeletonContactList.css';
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
 const SkeletonContactList = () => {
 
-  // NO. of placeholder skeletons
+  // NO. OF PLACEHOLDER CONTACTS
   const numberOfSkeletons = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
   ];
@@ -84,6 +82,7 @@ const SkeletonContactList = () => {
                   </ListItem>
                 </div>
                 <div>
+                  {/* CHECKBOX SKELETON */}
                   <Skeleton
                     sx={{ marginRight: 2 }}
                     animation='wave'
