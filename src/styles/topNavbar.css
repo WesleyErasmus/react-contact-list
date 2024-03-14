@@ -1,0 +1,38 @@
+
+.top-navbar {
+    background-color: #f50057 !important;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px !important;
+}
+
+.app-title {
+    font-size: 32px;
+    font-weight: 500;
+}
+
+    @media (max-width: 640px) {
+
+        .app-title-container {
+            padding: 20px 30px !important;
+            justify-content: start !important;
+        }
+
+        .app-title {
+            font-size: 32px;
+            font-weight: 500;
+        }
+
+        .top-navbar {
+            /* box-shadow: none !important; */
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
+        }
+
+    }
+
+    @media (max-width: 480px) {
+
+        .app-title {
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+    }

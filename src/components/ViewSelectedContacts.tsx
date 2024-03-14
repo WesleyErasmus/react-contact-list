@@ -1,6 +1,8 @@
+// STYLESHEET
+import '../styles/viewSelectedContacts.css';
+
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
+// import Dialog from '@mui/material/Dialog';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import List from '@mui/material/List';
@@ -13,6 +15,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import { useState } from 'react';
+import Dialog, { DialogProps } from '@mui/material/Dialog';
+
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 
 // Dialogue slide direction
 const Transition = React.forwardRef(function Transition(
@@ -25,26 +31,34 @@ const Transition = React.forwardRef(function Transition(
 });
 // CONTACT TYPE IMPORT
 import { Contact } from '../utils/useFetchData';
-import { Avatar } from '@mui/material';
+import {
+  Avatar,
+  DialogTitle,
+  ListItem,
+  ListItemAvatar,
+} from '@mui/material';
 import ContactView from './ContactView';
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
 interface ViewSelectedContactsProps {
   // Function type for the onClick prop
-  onClick: () => void;
+
   selectedContacts: Contact[];
+  dialogButtonText: string;
 }
 
 const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
-  onClick,
   selectedContacts,
+  dialogButtonText,
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
     setOpen(true);
+    setScroll(scrollType);
   };
 
   // OPEN DIALOG FUNCTION
@@ -63,65 +77,122 @@ const ViewSelectedContacts: React.FC<ViewSelectedContactsProps> = ({
 
   return (
     <>
-      <Button variant='outlined' onClick={handleClickOpen}>
-        <span onClick={onClick}>View Selected Contacts</span>
-      </Button>
+      <span onClick={handleClickOpen('paper')}>
+        <span>{dialogButtonText}</span>
+      </span>
       <Dialog
         fullScreen
         open={open}
+        scroll={scroll}
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }}>
-          <Toolbar>
-            <Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
-              Selected Contacts
-            </Typography>
-            <IconButton
-              edge='start'
-              color='inherit'
-              onClick={handleClose}
-              aria-label='close'
-            >
-              <CloseIcon />
-            </IconButton>
-          </Toolbar>
+        <AppBar className='top-navbar' sx={{ position: 'fixed' }}>
+          <DialogTitle id='scroll-dialog-title'>
+            <Toolbar variant='dense' sx={{ padding: '10px 0px' }}>
+              <Typography
+              className="view-selected-contacts-title"
+                sx={{ ml: 2, flex: 1, textAlign: 'center' }}
+                variant='h4'
+                component='div'
+              >
+                Selected Contacts
+              </Typography>
+              <IconButton
+                edge='start'
+                color='inherit'
+                onClick={handleClose}
+                aria-label='close'
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+          </DialogTitle>
         </AppBar>
-        <List>
-          {selectedContacts.map((contact: Contact) => {
-            return (
-              <>
-                <ListItemButton key={contact.login.uuid}>
-                  <Avatar
-                    // Open dialog on click function
-                    className='contact-list-contact-image'
-                    src={contact.picture.large}
-                    sx={{
-                      width: 55,
-                      height: 55,
-                      margin: 'auto',
-                    }}
+
+        <div>
+          <List
+            sx={{
+              width: '100%',
+              minWidth: 370,
+              maxWidth: 490,
+              bgcolor: 'background.paper',
+              margin: 'auto',
+              marginTop: "85px"
+            }}
+          >
+            {selectedContacts.map((contact: Contact) => {
+              return (
+                <div key={contact.login.uuid}>
+                  <ListItem
+                    className='contact-list-item'
+                    alignItems='flex-start'
                   />
-                  <ListItemText
-                    primary={`${contact.name.first} ${contact.name.last}`}
-                    secondary={contact.email}
-                  />
-                  <Button onClick={() => handleOpenDialog(contact)}>
-                    View Contact
-                  </Button>
-                </ListItemButton>
-                <Divider />
-              </>
-            );
-          })}
-          {selectedContact && (
-            // Passing contact data and the handle close dialog function through props to ContactView.
-            <ContactView
-              contact={selectedContact}
-              onClose={handleCloseDialog}
-            />
-          )}
-        </List>
+                  <ListItemButton onClick={() => handleOpenDialog(contact)}>
+                    <ListItemAvatar sx={{ marginRight: 2 }}>
+                      <Avatar
+                        sx={{
+                          width: 56,
+                          height: 56,
+                        }}
+                        alt={contact.name.first}
+                        src={contact.picture.large}
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        <Typography className='contact-name-text'>
+                          {contact.name.first} {contact.name.last}
+                        </Typography>
+                      }
+                      secondary={
+                        <div className='location-flex-container'>
+                          <div>
+                            <LocationOnIcon
+                              color='primary'
+                              sx={{ margin: 1 }}
+                            />
+                          </div>
+                          <div>
+                            <Typography
+                              sx={{ display: 'block' }}
+                              component='span'
+                              variant='body2'
+                              color='text.primary'
+                            >
+                              {contact.location.city}
+                            </Typography>
+                            <Typography
+                              variant='caption'
+                              color='text.secondary'
+                            >
+                              {contact.location.country}
+                            </Typography>
+                          </div>
+                        </div>
+                      }
+                    />
+                    <IconButton
+                      sx={{ color: '#f50057' }}
+                      size='large'
+                      aria-label='view contact'
+                    >
+                      <MoreHorizRoundedIcon />
+                    </IconButton>
+                  </ListItemButton>
+                  <Divider />
+                </div>
+              );
+            })}
+            {selectedContact && (
+              // Passing contact data and the handle close dialog function through props to ContactView.
+              <ContactView
+                contact={selectedContact}
+                onClose={handleCloseDialog}
+              />
+            )}
+          </List>
+        </div>
       </Dialog>
     </>
   );

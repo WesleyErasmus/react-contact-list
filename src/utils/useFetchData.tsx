@@ -39,8 +39,11 @@ const useFetchData = () => {
     const fetchData = async () => {
       try {
         // Asynchronously calling axios to fetch the API data
+        // const response = await axios.get(
+        //   'https://randomuser.me/api/?results=50'
+        // );
         const response = await axios.get(
-          'https://randomuser.me/api/?results=50'
+          'https://randomuser.me/api/?page=5&results=10&seed=abc'
         );
 
         // Setting data state variable with data from API
@@ -69,7 +72,7 @@ const useFetchData = () => {
   }, []);
 
   // Returning the data and isLoading state which is updated by the fetchData function. (allows other components to consume this data and loading state)
-  return { data, isLoading };
+  return { data, isLoading, setData };
 };
 
 export default useFetchData;

@@ -3,6 +3,7 @@
 // CUSTOM REACT HOOK - FETCHES API CONTACT DATA
 import useFetchData from '../utils/useFetchData';
 import { Contact } from '../utils/useFetchData';
+import axios from 'axios';
 
 // STYLESHEET
 import '../styles/contactList.css';
@@ -11,29 +12,37 @@ import '../styles/contactList.css';
 import {
   Avatar,
   Box,
-  Card,
-  CardContent,
   Checkbox,
-  Divider,
+  ListItemAvatar,
+  Typography,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Button,
 } from '@mui/material';
 
+// MUI ICONS
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-// import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import AddIcCallIcon from '@mui/icons-material/AddIcCall';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-// COMPONENTS
+
+// COMPONENT IMPORTS
 import SkeletonContactList from './SkeletonContactList';
 import ContactView from './ContactView';
-import ViewSelectedContacts from './ViewSelectedContacts';
+
 
 // STATE HOOK
 import { useState } from 'react';
+import MobileBottomNavbar from './MobileBottomNavbar';
+import TopNavbar from './TopNavbar';
+import NavFilterMenu from './NavFilterMenu';
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
 const ContactList = () => {
-  const { data, isLoading } = useFetchData();
+  const { data, isLoading, setData } = useFetchData();
 
   // STATE
   // SINGLE CONTACT VIEW
@@ -41,14 +50,24 @@ const ContactList = () => {
   // SELECTED CONTACTS LIST VIEW
   const [selectedContacts, setSelectedContacts] = useState<Contact[]>([]);
 
-  /* 1. Select individual contacts
-   2. select all contacts
-   3. Unselect / clear all selected items
-*/
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const handleLogSelectedContacts = () => {
-    console.log('Selected contacts:', selectedContacts);
-  };
+ const handleLoadMore = async () => {
+   try {
+     setIsLoadingMore(true);
+     const currentPage = data.length / 10 + 1; // Calculate current page
+     const response = await axios.get(
+       `https://randomuser.me/api/?page=${currentPage}&results=10&seed=abc`
+     );
+     const newData = response.data.results;
+     setData([...data, ...newData]); // Concatenate new data to existing data
+   } catch (error) {
+     console.error(error);
+   } finally {
+     setIsLoadingMore(false);
+   }
+ };
+
 
   const handleContactSelection = (contact: Contact) => {
     setSelectedContacts((prevSelectedContacts) => {
@@ -58,6 +77,10 @@ const ContactList = () => {
         return [...prevSelectedContacts, contact];
       }
     });
+  };
+
+  const clearSelectedContacts = () => {
+    setSelectedContacts([]);
   };
 
   // OPEN DIALOG FUNCTION
@@ -71,141 +94,137 @@ const ContactList = () => {
   };
 
   return (
-    // PAGE WRAPPER
-    <div className='contact-list-page-wrapper'>
-      {/* PAGE HEADING - *CONDITIONAL RENDERING* */}
-      <h1 className='contact-list-page-header'>
-        {isLoading ? 'Loading...' : 'Contact List'}
-      </h1>
+    <>
+      <Box sx={{ display: 'flex' }}>
+        {/* Top Navbar */}
+        <TopNavbar />
 
-      {/* TOP NAVBAR */}
-      <div className='top-navbar'>
-        
-        <ViewSelectedContacts
-          onClick={handleLogSelectedContacts}
+        <NavFilterMenu
+          clearSelectedContacts={clearSelectedContacts}
           selectedContacts={selectedContacts}
         />
-      </div>
-
-      {/* GRID CONTAINER */}
-      <div className='contact-list-grid-container'>
-        {/* Maps through API data once it has been retrieved, else displays loading message - using ternary operator */}
-        {!isLoading ? (
-          data.map((contact: Contact) => {
-            return (
-              <div key={contact.login.uuid}>
-                <div>
-                  {/* CARD */}
-                  <Card
-                    className='contact-card'
-                    sx={{
-                      borderRadius: '12px',
-                      bgcolor: '#f5f5f5',
-                      textAlign: 'center',
-                      boxShadow: 'none',
-                    }}
-                  >
-                    <div
-                      className={
+        <Box
+          component='main'
+          className='contact-list-padding-wrapper'
+          sx={{ flexGrow: 1, p: 3 }}
+        >
+          {/* LIST CONTAINER */}
+          <List
+            className='contact-list-container'
+            sx={{
+              width: '100%',
+              minWidth: 320,
+              maxWidth: 490,
+              bgcolor: 'background.paper',
+            }}
+          >
+            {(isLoading || data.length === 0) && <SkeletonContactList />}
+            {/* Maps through API data once it has been retrieved, else displays loading message - using ternary operator */}
+            {!isLoading &&
+              data.map((contact: Contact) => {
+                return (
+                  <div key={contact.login.uuid}>
+                    <ListItem
+                      className={`contact-list-item ${
                         selectedContacts.includes(contact)
                           ? 'selected-contact'
                           : ''
+                      }`}
+                      alignItems='flex-start'
+                      secondaryAction={
+                        <Checkbox
+                          sx={{ marginRight: 1 }}
+                          edge='end'
+                          checked={selectedContacts.includes(contact)}
+                          onChange={() => handleContactSelection(contact)}
+                          icon={<RadioButtonUncheckedIcon />}
+                          checkedIcon={<CheckCircleIcon />}
+                        />
                       }
                     >
-                      {/* CARD BODY */}
-                      <CardContent className='contact-card-body'>
-                        <div className='card-body-inner'>
-                          <div>
-                            {/* CONTACT IMAGE */}
-                            <Avatar
-                              // Open dialog on click function
-                              className='contact-list-contact-image'
-                              src={contact.picture.large}
-                              sx={{
-                                width: 84,
-                                height: 84,
-                                margin: 'auto',
-                              }}
-                            />
-                          </div>
-                          <div className='card-text-content'>
-                            <Box
-                              className='contact-list-contact-name'
-                              component='h3'
-                              sx={{
-                                fontSize: 14,
-                                fontWeight: 'bold',
-                                letterSpacing: '0.5px',
-                                marginTop: 1,
-                                marginBottom: 0.15,
-                              }}
-                            >
-                              {/* CONTACT NAME */}
-                              {contact.name.first} {contact.name.last}
-                            </Box>
-                            <Box
-                              component='span'
-                              sx={{
-                                fontSize: 13,
-                                color: 'black',
-                                marginBottom: '0.875em',
-                                textWrap: 'no-wrap',
-                              }}
-                            >
-                              {/* CONTACT LOCATION */}
-                              {contact.location.city},
-                            </Box>
-                            <Box
-                              component='div'
-                              sx={{
-                                fontSize: 13,
-                                color: 'black',
-                                marginBottom: '0.35em',
-                              }}
-                            >
-                              {/* CONTACT LOCATION */}
-                              {contact.location.country}
-                            </Box>
-                            <span
-                              className='view-contact-details-button'
-                              onClick={() => handleOpenDialog(contact)}
-                            >
-                              <AddIcCallIcon />
-                            </span>
-                          </div>
-                        </div>
-                        <div className='select-contact-checkbox'>
-                          <Checkbox
-                            checked={selectedContacts.includes(contact)}
-                            onChange={() => handleContactSelection(contact)}
-                            icon={<RadioButtonUncheckedIcon />}
-                            checkedIcon={<CheckCircleIcon />}
+                      <ListItemButton
+                        className='contact-list-item-button'
+                        onClick={() => handleOpenDialog(contact)}
+                      >
+                        <ListItemAvatar sx={{ marginLeft: 1, marginRight: 2 }}>
+                          <Avatar
+                            sx={{
+                              width: 56,
+                              height: 56,
+                            }}
+                            alt={contact.name.first}
+                            src={contact.picture.large}
                           />
-                        </div>
-                      </CardContent>
-                    </div>
-                    {/* <CardActions
-                      className='card-actions'
-                      sx={{ justifyContent: 'flex-end' }}
-                    > */}
-                    {/* </CardActions> */}
-                    <Divider light />{' '}
-                  </Card>
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          // LOADING SKELETON COMPONENT
-          <SkeletonContactList />
+                        </ListItemAvatar>
+
+                        <ListItemText
+                          primary={
+                            <Typography className='contact-name-text'>
+                              {contact.name.first} {contact.name.last}
+                            </Typography>
+                          }
+                          secondary={
+                            <div className='location-flex-container'>
+                              <div>
+                                <LocationOnIcon
+                                  color='primary'
+                                  sx={{ margin: 1 }}
+                                />
+                              </div>
+                              <div>
+                                <Typography
+                                  sx={{ display: 'block' }}
+                                  component='span'
+                                  variant='body2'
+                                  color='text.primary'
+                                >
+                                  {contact.location.city}
+                                </Typography>
+                                <Typography
+                                  variant='caption'
+                                  color='text.secondary'
+                                >
+                                  {contact.location.country}
+                                </Typography>
+                              </div>
+                            </div>
+                          }
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                    {/* <Divider variant='middle' component='li' /> */}
+                  </div>
+                );
+              })}
+            {/* // Loading skeleton while fetching more */}
+            {isLoadingMore && <SkeletonContactList />}
+          </List>
+          <div className='load-more-button-container'>
+            <Button
+              className='load-more-button'
+              variant='outlined'
+              onClick={handleLoadMore}
+              disabled={isLoadingMore}
+              style={{ display: data.length >= 10 ? 'block' : 'none' }}
+            >
+              Load More
+            </Button>
+          </div>
+        </Box>
+        {/* Shorthand conditional rendering that displays the modal if the selected contact is not null */}
+        {selectedContact && (
+          // Passing contact data and the handle close dialog function through props to ContactView.
+          <ContactView contact={selectedContact} onClose={handleCloseDialog} />
         )}
+      </Box>
+      {/* Mobile Navbar */}
+      <div className='mobile-navbar-visibility'>
+        <MobileBottomNavbar
+          clearSelectedContacts={clearSelectedContacts}
+          selectedContacts={selectedContacts}
+        />
       </div>
-      {/* Shorthand conditional rendering that displays the modal if the selected contact is not null */}
-      {selectedContact && (
-        // Passing contact data and the handle close dialog function through props to ContactView.
-        <ContactView contact={selectedContact} onClose={handleCloseDialog} />
-      )}
-    </div>
+    </>
   );
 };
 

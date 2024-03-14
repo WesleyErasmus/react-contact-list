@@ -1,0 +1,27 @@
+/* >>>>> BELOW CODE APPLIES ONLY TO SkeletonContactList.tsx <<<<< */
+.skeleton-contact-list-backdrop {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* Pseudo element used to cover image */
+.skeleton-contact-list-backdrop::after {
+    content: "";
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    opacity: 1;
+    z-index: 1;
+}
+
+.list-item-flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px 10px 10px !important;
+}

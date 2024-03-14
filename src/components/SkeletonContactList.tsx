@@ -1,9 +1,9 @@
 // >>>>>>>>>>>>>>> IMPORTS <<<<<<<<<<<<<<<
 
 // STYLESHEET
-import '../styles/contactList.css';
+import '../styles/skeletonContactList.css';
 // MUI
-import { Skeleton, Card, CardContent, Box, Divider } from '@mui/material';
+import { Skeleton, Box, List, ListItem } from '@mui/material';
 
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
@@ -17,72 +17,82 @@ const SkeletonContactList = () => {
 
   return (
     <div className='skeleton-contact-list-backdrop'>
-      <div className='contact-list-grid-container'>
+      <div >
         {/* MAP THROUGH numberOfSkeletons ARRAY */}
         {Array(...numberOfSkeletons).map(() => {
           return (
             <div>
               {/* CARD */}
-              <Card
-                className='contact-card'
+              <List
+                className='list-item-flex-container'
                 sx={{
-                  borderRadius: '12px',
                   bgcolor: '#f5f5f5',
                   textAlign: 'center',
                   boxShadow: 'none',
                 }}
               >
-                <CardContent className='contact-card-body'>
-                  {/* IMAGE SKELETON */}
-                  <div>
-                    <Skeleton
-                      animation='wave'
-                      variant='circular'
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                  <div className='card-text-content'>
-                    <Box
-                      className='contact-list-contact-name'
-                      component='h3'
-                      sx={{
-                        marginTop: 1,
-                        marginBottom: 0.5,
-                      }}
-                    >
-                      {/* TEXT SKELETON */}
+                <div>
+                  <ListItem>
+                    {/* IMAGE SKELETON */}
+                    <div>
                       <Skeleton
+                        sx={{ marginRight: 2, marginTop: 1 }}
                         animation='wave'
-                        variant='rectangular'
-                        width={120}
-                        height={20}
+                        variant='circular'
+                        width={60}
+                        height={60}
                       />
-                    </Box>
-                    <Box
-                      className='location-text-container'
-                      component='span'
-                      sx={{
-                        marginBottom: '0.875em',
-                      }}
-                    >
-                      {/* TEXT SKELETON */}
-                      <Skeleton
-                        animation='wave'
-                        variant='rectangular'
-                        width={120}
-                        height={20}
-                      />
-                    </Box>
-                  </div>
-                </CardContent>
-                <Divider
-                  light
-                  sx={{
-                    border: 'none',
-                  }}
-                />
-              </Card>
+                    </div>
+                    <div>
+                      <Box
+                        sx={{
+                          marginBottom: 1.5,
+                        }}
+                      >
+                        {/* TEXT SKELETON */}
+                        <Skeleton
+                          animation='wave'
+                          variant='rectangular'
+                          width={135}
+                          height={20}
+                        />
+                      </Box>
+                      <Box
+                        component='span'
+                        sx={{
+                          marginBottom: '0.875em',
+                        }}
+                      >
+                        {/* TEXT SKELETON */}
+                        <Skeleton
+                          sx={{
+                            marginBottom: '0.2em',
+                          }}
+                          animation='wave'
+                          variant='rectangular'
+                          width={105}
+                          height={10}
+                        />
+                        <Skeleton
+                          animation='wave'
+                          variant='rectangular'
+                          width={105}
+                          height={10}
+                        />
+                      </Box>
+                    </div>
+                  </ListItem>
+                </div>
+                <div>
+                  <Skeleton
+                    sx={{ marginRight: 2 }}
+                    animation='wave'
+                    variant='circular'
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              </List>
             </div>
           );
         })}
