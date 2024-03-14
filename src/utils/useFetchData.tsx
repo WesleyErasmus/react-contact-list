@@ -29,49 +29,44 @@ const useFetchData = () => {
   // <ContactData[]>: This type specifies that the data state variable will hold an array of objects that conform to the ContactData interface above.
   const [isLoading, setIsLoading] = useState(true);
 
-
   // USE EFFECT
 
   useEffect(() => {
-    // Effect triggers once when components initially render as the dependency array is is empty
+    // EFFECT TRIGGERS ONCE WHEN COMPONENTS INITIALLY RENDER AS THE DEPENDENCY ARRAY IS EMPTY
 
     // DEFINING THE FETCH DATA FUNCTION
     const fetchData = async () => {
       try {
-        // Asynchronously calling axios to fetch the API data
-        // const response = await axios.get(
-        //   'https://randomuser.me/api/?results=50'
-        // );
+        // ASYNCHRONOUSLY CALLING AXIOS TO FETCH THE API DATA
         const response = await axios.get(
           'https://randomuser.me/api/?page=5&results=10&seed=abc'
         );
 
-        // Setting data state variable with data from API
+        // SETTING DATA STATE VARIABLE WITH DATA FROM API
         setData(response.data.results);
         console.log(response.data.results);
 
         // ERROR HANDLING
       } catch (error) {
         console.error(error);
-  
       } finally {
-        /* The "FINALLY" code block guarantees that the below code will always run regardless of the success or fail of "try" and "catch" code blocks. 
+        /* THE "FINALLY" CODE BLOCK GUARANTEES THAT THE BELOW CODE WILL ALWAYS RUN REGARDLESS OF THE SUCCESS OR FAIL OF "TRY" AND "CATCH" CODE BLOCKS 
         >>
         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
         << */
 
-        // Set loading to false after the "catch" and "try" code blocks have run.
+        // SET LOADING TO FALSE AFTER THE "CATCH" AND "TRY" CODE BLOCKS HAVE RUN
         setIsLoading(false);
       }
     };
 
-    // Instantiating the fetchData function
+    // INSTANTIATING THE FETCHDATA FUNCTION
     fetchData();
 
-    // Defining an empty array as the useEffects second parameter
+    // DEFINING AN EMPTY ARRAY AS THE USEEFFECT'S SECOND PARAMETER
   }, []);
 
-  // Returning the data and isLoading state which is updated by the fetchData function. (allows other components to consume this data and loading state)
+  // RETURNING THE DATA AND ISLOADING STATE WHICH IS UPDATED BY THE FETCHDATA FUNCTION. (ALLOWS OTHER COMPONENTS TO CONSUME THIS DATA AND LOADING STATE)
   return { data, isLoading, setData };
 };
 

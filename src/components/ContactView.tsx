@@ -23,15 +23,21 @@ import { Contact } from '../utils/useFetchData';
 
 // >>>>>>>>>>>>>>> FUNCTION COMPONENT <<<<<<<<<<<<<<<
 
-// Receiving contact and close dialog props from parent ContactList.tsx component as params
-const ContactView = ({ contact, onClose }: {contact: Contact; onClose: () => void}) => {
+// RECEIVING CONTACT AND CLOSE DIALOG PROPS FROM PARENT CONTACTLIST.TSX COMPONENT AS PARAMS
+const ContactView = ({
+  contact,
+  onClose,
+}: {
+  contact: Contact;
+  onClose: () => void;
+}) => {
   return (
     <>
-      {/* !! (double-bang) operator turns any value into a boolean (true or false) */}
+      {/* !! (DOUBLE-BANG) OPERATOR TURNS ANY VALUE INTO A BOOLEAN (TRUE OR FALSE) */}
       <Dialog
-        // Passing contact data as a truthy to trigger open dialog
+        // PASSING CONTACT DATA AS A TRUTHY TO TRIGGER OPEN DIALOG
         open={!!contact}
-        // receiving onCLose function from props
+        // RECEIVING ONCLOSE FUNCTION FROM PROPS
         onClose={onClose}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'
@@ -52,7 +58,7 @@ const ContactView = ({ contact, onClose }: {contact: Contact; onClose: () => voi
           {/* CLOSE DIALOG BUTTON */}
           <IconButton
             aria-label='close'
-            // receiving onCLose function from props
+            // RECEIVING ONCLOSE FUNCTION FROM PROPS
             onClick={onClose}
             sx={{
               position: 'absolute',
@@ -93,9 +99,11 @@ const ContactView = ({ contact, onClose }: {contact: Contact; onClose: () => voi
                     variant='body1'
                     color='text.primary'
                   >
+                    {/* CITY */}
                     {contact.location.city}
                   </Typography>
                   <Typography variant='body2' color='text.primary'>
+                    {/* COUNTRY */}
                     {contact.location.country}
                   </Typography>
                 </div>

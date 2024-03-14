@@ -1,10 +1,11 @@
-
+/* Contact title */
 .contact-view-title {
     font-size: 15px;
     margin: 0.4rem 0;
     margin-bottom: 1rem;
 }
 
+/* Contact subtitle */
 .contact-view-subtitle {
     font-size: 32px;
     color: #f50057;
@@ -12,12 +13,14 @@
     margin: 0.5rem 0;
 }
 
+/* Location flex container */
 .contact-view-location-flex-container {
     display: flex;
     justify-content: center;
     margin-left: -40px;
 }
 
+/* Card divider */
 .contact-view-divider {
     border-bottom: 2px #fff solid;
     width: 24px;
@@ -25,9 +28,9 @@
     border-radius: 2px;
 }
 
+/* Card body */
 .contact-view-text-body {
     font-size: 15px;
-    /* font-weight: 500; */
     color: #f50057;
     line-height: 1.75;
     margin: 0 auto;
@@ -41,7 +44,7 @@
     border: none !important;
 }
 
-
+/* Dialog border-radius */
 .dialog-view {
     border-radius: 12px !important;
 }
@@ -56,6 +59,7 @@
     border-radius: 20px !important;
 }
 
+/* Card content padding override */
 .css-102cj0y-MuiCardContent-root:last-child {
     padding-bottom: 0 !important;
 }

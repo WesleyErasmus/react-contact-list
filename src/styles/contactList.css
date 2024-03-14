@@ -1,3 +1,4 @@
+/* Display navbar */
 .mobile-navbar-visibility {
     display: none;
 }
@@ -44,11 +45,13 @@
     background: #cecece73;
 }
 
+/* Load more button container */
 .load-more-button-container {
     display: flex;
     justify-content: start;
 }
 
+/* Load more button */
 .load-more-button {
     margin-bottom: 30px !important;
     margin-top: 7px !important;
@@ -56,9 +59,10 @@
     max-width: 490px;
 }
 
+/* MEDIA QUERIES */
+
 @media (max-width: 1366px) {
 
-    /* Nav drawer styling */
     .left-navigation-drawer,
     .MuiDrawer-paper {
         margin-left: 9rem;
@@ -68,7 +72,6 @@
 
 @media (max-width: 1064px) {
 
-    /* Nav drawer styling */
     .left-navigation-drawer,
     .MuiDrawer-paper {
         margin-left: 3rem;
@@ -78,7 +81,6 @@
 
 @media (max-width: 768px) {
 
-    /* Nav drawer styling */
     .left-navigation-drawer,
     .MuiDrawer-paper {
         margin-left: 0.5rem;
